@@ -1,10 +1,8 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =8
-let g:netrw_dirhist_1='/home/yuet/bash'
-let g:netrw_dirhist_2='/home/yuet/work/qt/linechart'
-let g:netrw_dirhist_3='/home/yuet'
-let g:netrw_dirhist_4='/home/yuet/work/qt/linechart'
-let g:netrw_dirhist_5='/home/yuet/.vim'
+let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_1='/usr/include/c++/7'
+let g:netrw_dirhist_2='/usr/include/c++'
+let g:netrw_dirhist_3='/usr/include'
+let g:netrw_dirhist_4='/usr/include/glib-2.0'
+let g:netrw_dirhist_5='/usr/include/glib-2.0/glib'
 let g:netrw_dirhist_6='/home/yuet/work/qt/linechart'
-let g:netrw_dirhist_7='/home/yuet/.vim'
-let g:netrw_dirhist_8='/home/yuet/work/vim'
