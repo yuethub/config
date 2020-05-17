@@ -42,10 +42,12 @@ let OmniCpp_MayCompleteScope = 1
 
 set tags+=~/tags/stdcpp                     " 添加tags文件
 set tags+=~/tags/qt                         " 添加tags文件
-set dictionary+=~/dict/cpp.list                  " 添加字典文件
+set dictionary+=~/.vim/dict/cpp.list                  " 添加字典文件
 
 " 全能补全重映射
-inoremap <C-l> <C-x><C-o>
+inoremap <C-o> <C-x><C-o>
+" 行补全重映射
+inoremap <C-l> <C-x><C-l>
 " 字典补全重映射
 inoremap <C-k> <C-x><C-k>
 " 文件名补全重映射
@@ -81,6 +83,11 @@ noremap <C-l> :Lexplore<CR>20<C-w><Bar>
 cnoremap <expr> %% getcmdtype( ) == ':' ? expand('%:h').'/' : '%%'
 "}}}
 
+" 拼写检查{{{
+set spell   " 关闭拼写检查
+set spelllang=en    " 设置拼写检查语言
+set spellfile=~/.vim/spell/en.utf-8.add
+"}}}
 
 
 
