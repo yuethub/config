@@ -1,6 +1,6 @@
-for file in $(ls bash/);
+for file in $(ls ~/bash/);
 do
     if [ $file != setup.bash ]; then
-        source bash/$file
+        source ~/bash/$file
     fi
 done

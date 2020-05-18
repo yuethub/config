@@ -11,3 +11,9 @@ struct
 int
 #oru
 Yoru/!
+#make/!
+tmake/!
+#UTOMOC/!
+#MAKE/!
+CMAKE/!
+AUTOMOC/!
