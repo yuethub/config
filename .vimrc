@@ -89,6 +89,9 @@ set spelllang=en    " 设置拼写检查语言
 set spellfile=~/.vim/spell/en.utf-8.add
 "}}}
 
+" 编译设置
+set makeprg=tmake
+
 
 
 

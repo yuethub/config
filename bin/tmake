@@ -27,33 +27,43 @@ createCMakeLists ()
     printf "\n" >> $projectFile
     printf "project($project \n\tVERSION $cmakeVersion \n\tLANGUAGES $langs\n)\n" >> $projectFile
     printf "\n" >> $projectFile
+
     # for qt applications
-    if [ "$mode" = "qt" ]; then
-        printf "set(CMAKE AUTOMOC ON)\n" >> $projectFile
-        printf "set(CMAKE AUTORCC ON)\n" >> $projectFile
-        printf "set(CMAKE AUTOUIC ON)\n" >> $projectFile
+    if [ "$qt" = "true" ]; then
+        # set variables for qt mechanism
+        printf "set(CMAKE_AUTOMOC ON)\n" >> $projectFile
+        printf "set(CMAKE_AUTORCC ON)\n" >> $projectFile
+        printf "set(CMAKE_AUTOUIC ON)\n" >> $projectFile
         printf "\n">> $projectFile
-        printf "find_package(Qt5 COMPONENTS \n">> $projectFile
+
+        # add find_package
+        printf "find_package(Qt5 5.14.2 COMPONENTS \n">> $projectFile
         printf "\tWidgets\n">> $projectFile
         printf "\tCore\n">> $projectFile
         printf "\tGui\n">> $projectFile
-        printf "\tREQUIRED\n">> $projectFile
+        printf "\t# add more here.\n" >> $projectFile
+        printf "\tREQUIRED\n">> $projectFile 
         printf ")\n">> $projectFile
-
         printf "\n">> $projectFile
-        printf "target_link_libraries($project \n">> $projectFile
-        printf "\tQt5::Widgets\n">> $projectFile
-        printf "\tQt5::Core\n">> $projectFile
-        printf "\tQt5::Gui\n">> $projectFile
-        printf ")\n">> $projectFile
     fi
 
+    # add_executable
     printf "add_executable($project \n" >> $projectFile
     for file in $sources 
     do
         printf "\t$file \n" >> $projectFile
     done
-    printf ")\n" >> $projectFile
+    printf ")\n\n" >> $projectFile
+
+    # add target_link_libraries
+    printf "target_link_libraries($project \n">> $projectFile
+    if [ "$qt" = "true" ]; then
+        printf "\tQt5::Widgets\n">> $projectFile
+        printf "\tQt5::Core\n">> $projectFile
+        printf "\tQt5::Gui\n">> $projectFile
+        printf "\t# add more here.\n" >> $projectFile
+    fi
+    printf ")\n">> $projectFile
 }
 
 # 获取源文件及其类型
@@ -80,7 +90,7 @@ getLangsAndSrcs()
 }
 
 # 命令行参数解析
-args=$(getopt -a -o o: -l makefile,project,qt -n 'tmake' -- "$@")
+args=$(getopt -a -o o: -l makefile,project,qt,opencv -n 'tmake' -- "$@")
 if [ $? != 0 ]; then
     echo "tmake: parse command line error."
     exit 1
@@ -96,7 +106,9 @@ do
             flagType="project"
             ;;
         --qt)
-            mode="qt"
+            qt="true"
+            ;;
+        --opencv)
             ;;
         -o)
             if [ -n "$2" ]; then
