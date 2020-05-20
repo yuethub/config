@@ -84,7 +84,7 @@ cnoremap <expr> %% getcmdtype( ) == ':' ? expand('%:h').'/' : '%%'
 "}}}
 
 " 拼写检查{{{
-set spell   " 关闭拼写检查
+set nospell   " 关闭拼写检查
 set spelllang=en    " 设置拼写检查语言
 set spellfile=~/.vim/spell/en.utf-8.add
 "}}}
