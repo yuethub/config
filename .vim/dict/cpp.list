@@ -42,6 +42,7 @@ this
 throw
 try
 typedef
+typename
 union
 unsigned
 virtual

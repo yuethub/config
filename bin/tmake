@@ -28,6 +28,15 @@ createCMakeLists ()
     printf "project($project \n\tVERSION $cmakeVersion \n\tLANGUAGES $langs\n)\n" >> $projectFile
     printf "\n" >> $projectFile
 
+    for item in $langs
+    do
+        if [ "$item" = "C" ];then
+            printf "set(CMAKE_C_STANDARD 11)\n\n" >> $projectFile
+        elif [ "$item" = "CXX" ]; then
+            printf "set(CMAKE_CXX_STANDARD 11)\n\n" >> $projectFile
+        fi
+    done
+
     # for qt applications
     if [ "$qt" = "true" ]; then
         # set variables for qt mechanism

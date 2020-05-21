@@ -1,0 +1,11 @@
+/.*
+/*/
+examples.desktop
+!/.gitignore
+!/package/
+!/bash/
+!/dict/
+!/bin/
+!/.vim/
+!/.vimrc
+!/.pip/
