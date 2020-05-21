@@ -1,0 +1,86 @@
+#!/bin/bash
+
+
+showHelp()
+{
+    printf "Usage\n\n"
+    printf "  shortcut [OPTIONS] <path-installed>\n\n"
+    printf "  Create a shortcut or a startup menu for a specified program(given by path-installed).\n\n"
+    printf "Options\n"
+    printf "  -f <filename>\t\t= Specify the file name of the shortcut.\n"
+    printf "  -h\t\t\t= Show the help infomation.\n"
+    printf "  -m\t\t\t= Just create startup menu for the given program.\n"
+    printf "  -s\t\t\t= Just create desktop shortcut for the given program.\n\n"
+}
+
+
+
+
+
+
+args=$(getopt -o hmsf: -n "shortcut" -- "$@")
+if [ $? != 0 ]; then
+    echo "parse command line arguments error."
+    exit 1
+fi
+
+eval set -- "$args"
+
+while [ -n "$1" ] && [ "$1" != "--" ]
+do
+    case $1 in 
+        -h)
+            showHelp
+            ;;
+        -m)
+            startupMenu=1;
+            ;;
+        -s)
+            shortcutEntry=1;
+            ;;
+        -f) 
+            filename=$2;
+            shift
+            ;;
+    esac
+    shift
+done
+installedPath=$2
+
+
+formats[0]=".png" 
+formats[1]=".ico"
+formats[2]=".icns" 
+formats[3]=".xpm"
+
+iconPath=""
+if [ -d "$installedPath" ]; then
+    let i=0
+    while [ ! -n "$iconPath" ] && [ $i != 4 ]
+    do
+        iconPath=$(find $installedPath -type f -name ${filename}${formats[$i]})
+        let i++
+    done
+    if [ ! -n "$iconPath" ];then
+        printf "没有在指定目录中相关的图标, 程序将中止.\n"
+        exit 1
+    else
+        printf "我们在指定目录中找到以下图标:\n\n"
+        let i=1
+        for item in $iconPath
+        do
+            printf "\t$i.%item"
+            let i++
+        done
+        let num=i-1
+        printf "\t请选择您需要的图标文件(1,2,3...): "
+        read var
+        if [ $var -gt $num ];
+        
+    fi
+fi
+
+echo $iconPath
+
+
+
