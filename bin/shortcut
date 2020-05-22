@@ -1,5 +1,7 @@
 #!/bin/bash
 
+iconPath=""     # 图标路径
+execPath=""     # 可执行文件路径
 
 showHelp()
 {
@@ -14,6 +16,74 @@ showHelp()
 }
 
 
+
+# 获取图标路径，$1为搜索路径, $2为搜索关键字
+getIconPath()
+{
+    local searchPath=$1
+    local keyword=$2
+    local -a iconType=(".png" ".icns" ".ico" ".xpm")
+
+    for (( i=0; i<${#iconType[@]}; i=i+1 ))
+    do
+        iconPath=$(find $searchPath -type f -name ${keyword}${iconType[i]})
+        if [ -n "$iconPath" ]; then
+            break
+        fi
+    done
+
+    if [ -z "$iconPath" ];then
+        printf "没有找到相关文件，程序将退出...\n\n"
+        exit 1
+    fi
+
+    local -i num=0
+    printf "为您找到以下图标文件:\n\n"
+    for item in $iconPath
+    do
+        let num++
+        printf "$num. $item\n" 
+    done
+    printf "\n请选择您需要的图标文件序号(1-${num}): "
+    read n
+    while [ $n -gt $num ] || [ $n -le 0 ]
+    do
+        printf "\n输入有误，请重新输入(1-${num}): "
+        read n
+    done
+    printf "\n"
+    iconPath=$(echo $iconPath | cut -d ' ' -f $n)
+}
+
+getExecPath()
+{
+    local searchPath=$1
+    local keyword=$2
+
+    execPath=$(find $searchPath -type f -perm -111 -name ${keyword})
+
+    if [ -z "$execPath" ];then
+        printf "没有找到相关文件，程序将退出...\n\n"
+        exit 1
+    fi
+
+    local -i num=0
+    printf "为您找到以下可执行文件:\n\n"
+    for item in $execPath
+    do
+        let num++
+        printf "$num. $item\n" 
+    done
+    printf "\n请选择您需要的可执行文件序号(1-${num}): "
+    read n
+    while [ $n -gt $num ] || [ $n -le 0 ]
+    do
+        printf "\n输入有误，请重新输入(1-${num}): "
+        read n
+    done
+    printf "\n"
+    execPath=$(echo $execPath | cut -d ' ' -f $n)
+}
 
 
 
@@ -48,39 +118,8 @@ done
 installedPath=$2
 
 
-formats[0]=".png" 
-formats[1]=".ico"
-formats[2]=".icns" 
-formats[3]=".xpm"
 
-iconPath=""
-if [ -d "$installedPath" ]; then
-    let i=0
-    while [ ! -n "$iconPath" ] && [ $i != 4 ]
-    do
-        iconPath=$(find $installedPath -type f -name ${filename}${formats[$i]})
-        let i++
-    done
-    if [ ! -n "$iconPath" ];then
-        printf "没有在指定目录中相关的图标, 程序将中止.\n"
-        exit 1
-    else
-        printf "我们在指定目录中找到以下图标:\n\n"
-        let i=1
-        for item in $iconPath
-        do
-            printf "\t$i.%item"
-            let i++
-        done
-        let num=i-1
-        printf "\t请选择您需要的图标文件(1,2,3...): "
-        read var
-        if [ $var -gt $num ];
-        
-    fi
-fi
 
-echo $iconPath
 
 
 

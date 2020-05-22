@@ -1,6 +1,7 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =4
+let g:netrw_dirhist_cnt =5
 let g:netrw_dirhist_1='/home/yuet/work/qt/linechart/src'
 let g:netrw_dirhist_2='/home/yuet/work/c++/tuple'
 let g:netrw_dirhist_3='/usr/share/example-content'
 let g:netrw_dirhist_4='/usr/share/example-content/Ubuntu_Free_Culture_Showcase'
+let g:netrw_dirhist_5='/home/yuet/bin'
