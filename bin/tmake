@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# 源代码目录
+# 源代码目录 
 srcPath=$(pwd)
 
 # 获取工程目录
@@ -147,11 +147,24 @@ elif [ "$cmd" = "config" ]; then
     createCMakeLists
     echo "Successfully create CMakeLists.txt in current Files."
 elif [ "$cmd" = "run" ]; then
-    exe="../build/$project"
+    if [ -n "$2" ]; then
+        exe="../build/$2"
+        shift;shift
+    else
+        exe="../build/$project"
+        shift
+    fi
     echo "Executing $exe:"
     echo ""
-    $exe
+    $exe $@
     echo ""
+elif [ "$cmd" = "clean" ]; then
+    if [ -d ../build ]; then
+        rm -rf ../build
+        echo -e "-- \033[1;32mScuccessfully clean the build directory\033[0m"
+    else
+        echo -e "-- Nothing to do."
+    fi
 fi
 
 exit
