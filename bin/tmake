@@ -136,7 +136,12 @@ if [ "$cmd" = "make" ]; then
     fi
     cd ../build
     cmake -G "Unix Makefiles" $srcPath
-    cmake --build . --config Release
+    if [ -z "$2" ]; then
+        target=all
+    else
+        target=$2
+    fi
+    cmake --build . --config Release --target $target
 elif [ "$cmd" = "config" ]; then
     shift
     parseCommandArgs
