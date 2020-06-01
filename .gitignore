@@ -1,7 +1,9 @@
-/.*
+*.o
+*.stash
+/*
 /*/
-examples.desktop
-!/.gitignore
+
+!.gitignore
 !/package/
 !/bash/
 !/dict/
@@ -9,3 +11,4 @@ examples.desktop
 !/.vim/
 !/.vimrc
 !/.pip/
+!/work/
